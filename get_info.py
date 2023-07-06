@@ -16,7 +16,7 @@ os_version = platform.release()
 data = f"date: {current_date}, time: {current_time}, os_name: {os_name}, os_version: {os_version}"
 print(data)
 # File name
-file_path = "/var/jenkins_home/workspace/avikahana-pipeline/info.txt"
+file_path = "/var/jenkins_home/info.txt"
 
 # Open the file in write mode
 with open(file_path, "w") as file:
