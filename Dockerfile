@@ -5,12 +5,10 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the python script into the container
-COPY requirements.txt /app/
-COPY get_info.py /app/
-
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+COPY get_info.py .
 
 # Define the command to run your Python script
-CMD ["python", "get_info.py"]
+ENTRYPOINT ["python", "get_info.py"]
 
+# Expose the output directory as a volume to host
+VOLUME /app/output
