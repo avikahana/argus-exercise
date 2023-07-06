@@ -7,7 +7,7 @@ pipeline {
                 sh 'docker build -t get_info .'
 
                 withAWS(credentials: 'avikahana-aws-jenkins-credentials', region: 'us-east-1') {
-     
+                    echo 'Hello'
                     // Upload the output file to S3
                     sh 'docker run -v /tmp:/app get_info aws s3 cp /app/info.txt s3://avikahana/'
                  
