@@ -8,7 +8,4 @@ WORKDIR /app
 COPY get_info.py .
 
 # Define the command to run your Python script
-ENTRYPOINT ["python", "-u", "get_info.py"]
-
-# Expose the output directory as a volume to host
-VOLUME /app/output
+CMD ["python", "-u", "get_info.py"]
