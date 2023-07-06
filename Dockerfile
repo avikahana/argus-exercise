@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the python script into the container
-COPY requirements.txt /app/
+# COPY requirements.txt /app/
 COPY get_info.py /app/
 
 # Install dependencies
