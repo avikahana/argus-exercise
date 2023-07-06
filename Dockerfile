@@ -14,5 +14,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Define the command to run your Python script
 CMD ["python", "get_info.py"]
 
-# Expose the output directory as a volume to host
-VOLUME /app
