@@ -13,7 +13,7 @@ os_version = platform.release()
 
 # Formated data
 data = f"date: {current_date}, time: {current_time}, os_name: {os_name}, os_version: {os_version}"
-
+print(data)
 # File name
 file_path = "info.txt"
 
