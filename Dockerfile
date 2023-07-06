@@ -12,5 +12,5 @@ COPY get_info.py /app/
 # RUN pip install --no-cache-dir -r requirements.txt
 
 # Define the command to run your Python script
-CMD ["python", "get_info.py"]
+CMD ["python", "/app/get_info.py"]
 
