@@ -17,7 +17,7 @@ data = f"date: {current_date}, time: {current_time}, os_name: {os_name}, os_vers
 print(data)
 # File name
 file_path = "info.txt"
-
+print(os.getcwd())
 # Open the file in write mode
 with open(file_path, "w") as file:
     file.write(data)
