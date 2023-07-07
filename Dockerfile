@@ -10,4 +10,4 @@ COPY get_info.py .
 # Define the command to run your Python script
 CMD ["python", "-u", "get_info.py"]
 
-VOLUME /app/output
+VOLUME /app
