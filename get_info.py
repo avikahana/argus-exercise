@@ -21,3 +21,13 @@ print(os.getcwd())
 # Open the file in write mode
 with open(file_path, "w") as file:
     file.write(data)
+
+# The path for listing items
+path = '.'
+ 
+# The list of items
+files = os.listdir(path)
+
+# Loop to print each filename separately
+for filename in files:
+    print(filename)
