@@ -8,6 +8,6 @@ WORKDIR /app
 COPY get_info.py /app/
 
 # Define the command to run your Python script
-ENTRYPOINT ["python", "get_info.py"]
+ENTRYPOINT ["python", "/app/get_info.py"]
 
 VOLUME /app/app
