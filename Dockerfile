@@ -5,9 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the python script into the container
-COPY get_info.py /app/
+COPY get_info.py .
 
 # Define the command to run your Python script
 ENTRYPOINT ["python", "get_info.py"]
-
-# VOLUME /app
