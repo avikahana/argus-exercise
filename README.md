@@ -1,2 +1,0 @@
-# argus-exercise
-Argus-Exercise
