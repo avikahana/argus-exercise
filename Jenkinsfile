@@ -44,6 +44,7 @@ pipeline {
                 sh 'sudo docker run --group-add 0 --publish 8080:8080 --name get_info --volume /var/run/docker.sock:/var/run/docker.sock get_info'
                 
                 // Temp step until shared folder from Docker inside Docker will be resolve
+                // Only this left
                 sh 'python3 get_info.py'
                 
                 withAWS(region:'us-east-1',credentials:'avikahana-aws-token') {
