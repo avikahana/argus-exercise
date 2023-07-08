@@ -6,15 +6,17 @@ pipeline {
 
     stages {
         stage('prepare') {
-            when {
-                anyOf {
-                    environment name: 'RUN', value: 'Build & Deploy' 
-                    branch 'master'
-                    branch 'main'
-                    branch '*'
-                }    
-            }
+            // when {
+            //     anyOf {
+            //         environment name: 'RUN', value: 'Build & Deploy' 
+            //         branch 'master'
+            //         branch 'main'
+            //         branch '*'
+            //     }    
+            // }
+
             steps {
+                echo env.BRANCH_NAME
                 sh 'sudo usermod -aG docker jenkins'
                 sh 'newgrp docker'
                 sh 'sudo chmod 777 /var/run/docker.sock'
