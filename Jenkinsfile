@@ -9,7 +9,7 @@ pipeline {
             when {
                 anyOf {
                     environment name: 'RUN', value: 'Build & Deploy' 
-                    branch 'main'
+                    branch 'master'
                 }    
             }
             steps {
