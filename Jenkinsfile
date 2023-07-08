@@ -16,7 +16,7 @@ pipeline {
             // }
 
             steps {
-                echo env.BRANCH_NAME
+                echo ${currentBuild.getBuildCauses()[0].shortDescription}
                 sh 'sudo usermod -aG docker jenkins'
                 sh 'newgrp docker'
                 sh 'sudo chmod 777 /var/run/docker.sock'
