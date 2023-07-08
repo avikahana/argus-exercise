@@ -32,7 +32,7 @@ pipeline {
             when {
                 anyOf {
                     environment name: 'RUN', value: 'Build & Deploy' 
-                    branch 'main'
+                    triggeredBy 'githubPush'
                 }    
             }
             steps {
