@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('prepare') {
             when {
-                branch 'main'
+                branch '*/main'
             }
             steps {
                 sh 'sudo usermod -aG docker jenkins'
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Build & Deploy') {
             when {
-                branch 'main'
+                branch '*/main'
             }
             steps {
                 
