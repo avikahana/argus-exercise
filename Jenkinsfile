@@ -6,7 +6,7 @@ pipeline {
 
     stages {
         stage('prepare') {
-            when { triggeredBy 'SCMTrigger' }
+            
             steps {
                 sh 'sudo usermod -aG docker jenkins'
                 sh 'newgrp docker'
@@ -20,7 +20,7 @@ pipeline {
         }
 
         stage('Build & Deploy') {
-            when { triggeredBy 'SCMTrigger' }
+            
             steps {
                 
                 echo 'Pull files from a GitHub repository'
