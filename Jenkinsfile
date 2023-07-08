@@ -8,17 +8,15 @@ pipeline {
     }
     stages {
         stage('prepare') {
-            // when {
-            //     anyOf {
-            //         environment name: 'RUN', value: 'Build & Deploy' 
-            //         branch 'master'
-            //         branch 'main'
-            //         branch '*'
-            //     }    
-            // }
+            when {
+                anyOf {
+                    environment name: 'RUN', value: 'Build & Deploy' 
+                    triggeredBy 'githubPush'
+                }    
+            }
 
             steps {
-                echo "Build caused by ${env.CAUSE}"
+                echo "Build caused by ${env.CAUSE}" //Started by GitHub push
                 sh 'sudo usermod -aG docker jenkins'
                 sh 'newgrp docker'
                 sh 'sudo chmod 777 /var/run/docker.sock'
