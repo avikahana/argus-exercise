@@ -6,7 +6,12 @@ pipeline {
 
     stages {
         stage('prepare') {
- 
+            when {
+                oneOf {
+                    environment name: 'RUN', value: 'Build & Deploy' 
+                    branch 'main'
+                }    
+            }
             steps {
                 sh 'sudo usermod -aG docker jenkins'
                 sh 'newgrp docker'
@@ -20,10 +25,14 @@ pipeline {
         }
 
         stage('Build & Deploy') {
-
+            when {
+                oneOf {
+                    environment name: 'RUN', value: 'Build & Deploy' 
+                    branch 'main'
+                }    
+            }
             steps {
                 
-                echo RUN
                 echo 'Pull files from a GitHub repository'
                 git url: 'https://github.com/avikahana/argus-exercise.git', branch: 'main'
 
