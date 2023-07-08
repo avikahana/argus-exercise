@@ -7,7 +7,10 @@ pipeline {
     stages {
         stage('prepare') {
             when {
-                branch '*'
+                allOf {
+                    //not { changeset pattern: "Jenkinsfile" }
+                    branch 'main'
+                }    
             }
             steps {
                 sh 'sudo usermod -aG docker jenkins'
