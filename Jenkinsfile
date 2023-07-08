@@ -49,6 +49,9 @@ pipeline {
         }
 
         stage('Pull & Test') {
+            when {
+                triggeredBy 'ParameterizedTimerTriggerCause'
+            }
             steps {
                 
                 withAWS(region:'us-east-1',credentials:'avikahana-aws-token') {
@@ -70,7 +73,7 @@ pipeline {
             }
         }
     }
-    
+
     post { 
         always { 
             cleanWs()
