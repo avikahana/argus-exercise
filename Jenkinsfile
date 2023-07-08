@@ -9,7 +9,7 @@ pipeline {
             when {
                 anyOf {
                     environment name: 'RUN', value: 'Build & Deploy' 
-                    changeRequest()
+                    branch 'main'
                 }    
             }
             steps {
@@ -28,7 +28,7 @@ pipeline {
             when {
                 anyOf {
                     environment name: 'RUN', value: 'Build & Deploy' 
-                    changeRequest()
+                    branch 'main'
                 }    
             }
             steps {
