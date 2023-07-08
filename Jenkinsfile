@@ -6,7 +6,9 @@ pipeline {
 
     stages {
         stage('prepare') {
-            
+            when {
+                branch 'main'
+            }
             steps {
                 sh 'sudo usermod -aG docker jenkins'
                 sh 'newgrp docker'
@@ -20,7 +22,9 @@ pipeline {
         }
 
         stage('Build & Deploy') {
-            
+            when {
+                branch 'main'
+            }
             steps {
                 
                 echo 'Pull files from a GitHub repository'
