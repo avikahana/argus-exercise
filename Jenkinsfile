@@ -61,7 +61,12 @@ pipeline {
         }
 
         stage('Pull & Test') {
-            when { triggeredBy 'TimerTrigger' }
+            when {
+                anyOf {
+                    environment name: 'RUN', value: 'Pull & Test' 
+                    triggeredBy 'TimerTrigger'
+                }    
+            }
             steps {
                 
                 withAWS(region:'us-east-1',credentials:'avikahana-aws-token') {
