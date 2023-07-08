@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('prepare') {
             when {
-                oneOf {
+                anyOf {
                     environment name: 'RUN', value: 'Build & Deploy' 
                     branch 'main'
                 }    
@@ -26,7 +26,7 @@ pipeline {
 
         stage('Build & Deploy') {
             when {
-                oneOf {
+                anyOf {
                     environment name: 'RUN', value: 'Build & Deploy' 
                     branch 'main'
                 }    
