@@ -19,21 +19,45 @@ pipeline {
                 echo 'Get repo from GitHub'
                 git url: 'https://github.com/avikahana/argus-exercise.git', branch: 'main'
                 
-                sh ('ls')
-                sh ('pwd')
-                
                 echo 'Build docker image from Dockerfile'
                 sh ("sudo docker build -f Dockerfile -t get_info .")
                 
-                echo 'File list before docker run'
-                sh ('ls')
-                sh ('pwd')
-                
                 echo 'Run docker get_info'
-                sh ("sudo docker run --group-add $(stat -c '%g' /var/run/docker.sock) --publish 8080:8080 --name get_info --volume /var/run/docker.sock:/var/run/docker.sock get_info")
+                sh ("sudo docker run --group-add 0 --publish 8080:8080 --name get_info --volume /var/run/docker.sock:/var/run/docker.sock  /\${pwd}:/var/jenkins_home get_info")
                 
-                echo 'file list after docker run'
-                sh ('ls')                
+                // Temp step until shared folder from Docker inside Docker will be resolve
+                sh ('python3 get_info.py')
+                
+                withAWS(region:'us-east-1',credentials:'avikahana-aws-token') {
+                    echo 'Upload the info.txt output file to S3 bucket'
+                    s3Upload (acl: 'Private' , bucket: 'avikahana' , file: 'info.txt')
+
+                    echo 'Upload Docker image to AWS ECR'
+                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 161192472568.dkr.ecr.us-east-1.amazonaws.com'
+                    sh 'docker build -t avikahana .'
+                    sh 'docker tag avikahana:latest 161192472568.dkr.ecr.us-east-1.amazonaws.com/avikahana:latest'
+                    sh 'docker push 161192472568.dkr.ecr.us-east-1.amazonaws.com/avikahana:latest'
+                }
+            }
+        }
+        stage('Pull & Test') {
+            steps {
+        
+                withAWS(region:'us-east-1',credentials:'avikahana-aws-token') {
+                    echo 'Download the info.txt file from S3 bucket'
+                    s3Download(file: 'downloaded_info.txt', bucket: 'avikahana', path: 'info.txt', force: true)
+                }
+                
+                echo 'Validate if the downloaded file from S3 is not empty'
+                script{
+                    def output_list = readFile("downloaded_info.txt")
+                    if (output_list.size() == 0) {
+                        echo "File is empty"
+                    }
+                    else {
+                        echo "File is not empty"
+                    }
+                }
             }
         }
     }
