@@ -3,9 +3,7 @@
 pipeline {
 
     agent any
-    environment {
-        CAUSE = "${currentBuild.getBuildCauses()[0].shortDescription}"
-    }
+
     stages {
         stage('prepare') {
             when {
@@ -15,8 +13,7 @@ pipeline {
                 }    
             }
 
-            steps {
-                echo "Build caused by ${env.CAUSE}" //Started by GitHub push
+            steps {                
                 sh 'sudo usermod -aG docker jenkins'
                 sh 'newgrp docker'
                 sh 'sudo chmod 777 /var/run/docker.sock'
