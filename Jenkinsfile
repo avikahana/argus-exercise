@@ -3,7 +3,7 @@
 pipeline {
 
     agent any
-    
+
     stages {
         stage('prepare') {
             steps {
@@ -68,6 +68,12 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    
+    post { 
+        always { 
+            cleanWs()
         }
     }
 }
