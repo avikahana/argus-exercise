@@ -5,25 +5,6 @@ pipeline {
     agent any
 
     stages {
-        stage('prepare') {
-            when {
-                anyOf {
-                    environment name: 'RUN', value: 'Build & Deploy' 
-                    triggeredBy 'githubPush'
-                }    
-            }
-
-            steps {                
-                sh 'sudo usermod -aG docker jenkins'
-                sh 'newgrp docker'
-                sh 'sudo chmod 777 /var/run/docker.sock'
-
-                sh """
-                    sudo docker rm -f get_info || true
-                    sudo docker image rm -f get_info || true
-                """
-            }
-        }
 
         stage('Build & Deploy') {
             when {
@@ -93,7 +74,12 @@ pipeline {
 
     post { 
         always { 
+            echo 'Cleaning enviornment'            
             cleanWs()
+            sh """
+                sudo docker rm -f get_info || true
+                sudo docker image rm -f get_info || true
+            """
         }
     }
 }
