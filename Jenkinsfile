@@ -15,6 +15,11 @@ pipeline {
             }
             steps {
                 
+                echo 'לClean previews images'
+                sh """
+                    sudo docker rm -f get_info || true
+                    sudo docker image rm -f get_info || true
+                """
                 echo 'Pull files from a GitHub repository'
                 git url: 'https://github.com/avikahana/argus-exercise.git', branch: 'main'
 
@@ -71,11 +76,7 @@ pipeline {
     post { 
         always { 
             echo 'Cleaning enviornment'            
-            cleanWs()
-            sh """
-                sudo docker rm -f get_info || true
-                sudo docker image rm -f get_info || true
-            """
+            cleanWs()            
         }
     }
 }
